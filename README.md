@@ -30,6 +30,14 @@ Biểu đồ công việc từng thành viên:
 | Mapping | x | | | |
 | Database, function, query... (currently) | x | | | |
 | Front-end | | x | | x |
-| Testing | x | x | x | x |
+| Testing & presenting | x | x | x | x |
+
+## Tên đề tài: Hệ thống Quản lý Lớp học (Classroom Management System – CMS)
+### Mô tả:
+Đây là một nền tảng web được xây dựng nhằm số hóa và hợp lý hóa các hoạt động quản lý, giảng dạy và học tập trong phạm vi lớp học của một trung tâm giáo dục (học thêm). Hệ thống tập trung vào các chức năng cốt lõi: quản lý lớp học – giao và nộp bài – chấm điểm – trao đổi.
+### Mục tiêu:
+• Giảm tải công việc hành chính cho giáo viên.
+• Giúp sinh viên dễ dàng theo dõi tiến độ học tập.
+• Tăng cường tương tác trong lớp.
 
 
