@@ -19,5 +19,17 @@ Biểu đồ Gantt công việc:
 | Testing (planning) | | | | | | | | | | | | x | x | x |
 | Report | | | | | | | | | | | | | | x |
 
+Biểu đồ công việc từng thành viên:
+| Task/SV | NSơn (lead) | XSơn | Thái | Tâm |
+|---------|-------------|------|------|-----|
+| Lên ý tưởng | x | x | x | x |
+| Vẽ Usecase | | x | x | |
+| Vẽ workflow | | x | | x |
+| ERD | x | | x | |
+| Prototype (currently) | x | x | x | x |
+| Mapping | x | | | |
+| Database, function, query... (currently) | x | | | |
+| Front-end | | x | | x |
+| Testing | x | x | x | x |
 
 
