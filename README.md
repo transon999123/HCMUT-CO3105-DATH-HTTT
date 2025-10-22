@@ -13,6 +13,11 @@ Danh sách SV:
 Biểu đồ Gantt công việc:
 | ĐATH | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 | T13 | T14 |
 |------|----|----|----|----|----|----|----|----|----|-----|-----|-----|-----|-----|
-| Planning & analyzing | x | x | | | | | | | | | | | | |
-| Design | | x | x | x | x | x | x | | | | | | | |
+| Planning & analyzing (done) | x | x | | | | | | | | | | | | |
+| Design (done) | | x | x | x | x | x | x | | | | | | | |
+| Implementation (currently) | | | | | | x | x | x | x | x | x | x | x | |
+| Testing (planning) | | | | | | | | | | | | x | x | x |
+| Report | | | | | | | | | | | | | | x |
+
+
 
