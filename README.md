@@ -27,9 +27,8 @@ Biểu đồ công việc từng thành viên:
 | Vẽ Usecase | | x | x | |
 | Vẽ workflow | | x | | x |
 | ERD, Mapping | x | | | |
-| Prototype (currently) | | x | | x |
-| Database, function, query... (currently) | x | | x | |
-| Front-end | | x | | x |
+| Database, back-end (currently) | x | | x | |
+| Prototype, Front-end | | x | | x |
 | Testing & presenting | x | x | x | x |
 
 ## Tên đề tài: Hệ thống Quản lý Lớp học (Classroom Management System – CMS)
