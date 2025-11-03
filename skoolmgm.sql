@@ -1,5 +1,7 @@
 -- Learning Management System Database Schema for MS SQL Server
 -- Drop tables in reverse dependency order
+create database skoolmgm;
+
 DROP TABLE IF EXISTS SEND;
 DROP TABLE IF EXISTS EDIT;
 DROP TABLE IF EXISTS SUBMISSION;
@@ -145,4 +147,5 @@ CREATE INDEX idx_enroll_student ON ENROLL(StudentID);
 CREATE INDEX idx_enroll_class ON ENROLL(ClassID);
 CREATE INDEX idx_assignment_class ON ASSIGNMENT(ClassID);
 CREATE INDEX idx_submission_assignment ON SUBMISSION(AssignmentID);
+
 CREATE INDEX idx_submission_student ON SUBMISSION(StudentID);
