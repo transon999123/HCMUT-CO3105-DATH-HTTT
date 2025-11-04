@@ -41,3 +41,10 @@ Biểu đồ công việc từng thành viên:
 
 • Tăng cường tương tác trong lớp.
 
+Một hệ thống lý tưởng cần có:
+
+• Giao diện thân thiện.
+• Khả năng giao tiếp linh hoạt.
+• Quản lý điểm mạnh mẽ.
+
+Đề tài này sẽ phát triển một hệ thống nhẹ, dễ sử dụng, tập trung vào tính năng chính của lớp học
