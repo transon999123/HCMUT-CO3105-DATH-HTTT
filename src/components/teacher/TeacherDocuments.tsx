@@ -81,7 +81,7 @@ export function TeacherDocuments({ user }: TeacherDocumentsProps) {
 
         <button
           onClick={() => setUploadDialogOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          className="flex items-center gap-2 px-4 py-2 bg-white text-black border border-gray-300 rounded-md hover:bg-gray-50"
         >
           <Plus className="w-4 h-4" />
           Upload tài liệu
@@ -264,7 +264,7 @@ export function TeacherDocuments({ user }: TeacherDocumentsProps) {
               </button>
               <button
                 onClick={handleUpload}
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                className="px-4 py-2 bg-white text-black border border-gray-300 rounded-md hover:bg-gray-50"
               >
                 Upload
               </button>

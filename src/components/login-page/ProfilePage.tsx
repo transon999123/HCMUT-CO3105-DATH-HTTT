@@ -45,11 +45,7 @@ export function ProfilePage({ user }: ProfilePageProps) {
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Thông tin cá nhân</h2>
             <button
-              className={`px-4 py-2 rounded-md ${
-                isEditing
-                  ? "border border-gray-300 hover:bg-gray-50"
-                  : "bg-blue-600 hover:bg-blue-700 text-white"
-              }`}
+              className={`px-4 py-2 bg-white text-black border border-gray-300 rounded-md hover:bg-gray-50`}
               onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
             >
               {isEditing ? "Lưu thay đổi" : "Chỉnh sửa"}
@@ -60,7 +56,8 @@ export function ProfilePage({ user }: ProfilePageProps) {
           <div className="flex flex-col md:flex-row gap-6">
             {/* Avatar Section */}
             <div className="flex flex-col items-center space-y-4">
-              <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg font-bold">
+              {/* AVATAR NỀN TRẮNG CHỮ ĐEN */}
+              <div className="w-24 h-24 rounded-full bg-white border border-gray-300 flex items-center justify-center text-black text-lg font-bold shadow-sm">
                 {getInitials(user.name)}
               </div>
               {!isEditing && (

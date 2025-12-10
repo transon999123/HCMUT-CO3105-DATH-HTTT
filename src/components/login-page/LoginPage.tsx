@@ -1,5 +1,5 @@
+// LoginPage.tsx (đã đơn giản hóa)
 import { useState } from "react";
-import { BookOpen, AlertCircle } from "lucide-react";
 import logo from "../../assets/01_logobachkhoasang.png";
 
 interface LoginPageProps {
@@ -15,7 +15,6 @@ export function LoginPage({
 }: LoginPageProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -34,82 +33,52 @@ export function LoginPage({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="bg-white rounded-lg border p-6">
           {/* Logo and Title */}
-          <div className="text-center mb-8">
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-32 mx-auto mb-4 rounded-full object-cover"
-            />
-            <h1 className="text-blue-600 text-2xl font-bold mb-2">
-              BK EduClass
-            </h1>
+          <div className="text-center mb-6">
+            <img src={logo} alt="Logo" className="h-24 mx-auto mb-4" />
+            <h1 className="text-xl font-bold mb-2">BK EduClass</h1>
             <p className="text-gray-600">Hệ thống quản lý lớp học</p>
           </div>
 
           {/* Error Alert */}
           {error && (
-            <div className="flex items-center gap-2 p-3 mb-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
-              <AlertCircle className="w-4 h-4" />
-              <span>{error}</span>
+            <div className="p-3 mb-4 bg-red-50 text-red-700 rounded border border-red-200">
+              {error}
             </div>
           )}
 
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email / Tên đăng nhập
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Email
               </label>
               <input
-                id="email"
                 type="email"
                 placeholder="example@bkedu.vn"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
             </div>
 
-            <div className="space-y-2">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Mật khẩu
               </label>
               <input
-                id="password"
                 type="password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="remember"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <label
-                  htmlFor="remember"
-                  className="text-sm cursor-pointer select-none"
-                >
-                  Ghi nhớ đăng nhập
-                </label>
-              </div>
+            <div className="flex justify-between items-center">
               <button
                 type="button"
                 onClick={onNavigateToForgotPassword}
@@ -121,7 +90,7 @@ export function LoginPage({
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
             >
               Đăng nhập
             </button>

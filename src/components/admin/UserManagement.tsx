@@ -151,7 +151,7 @@ export function UserManagement() {
 
         <button
           onClick={() => setCreateDialogOpen(true)}
-          className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 flex items-center gap-2"
+          className="bg-white text-black border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 flex items-center gap-2"
         >
           <Plus className="w-4 h-4" />
           Tạo người dùng mới
@@ -296,7 +296,7 @@ export function UserManagement() {
               </button>
               <button
                 onClick={handleCreateUser}
-                className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
+                className="flex-1 bg-white text-black border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50"
               >
                 Tạo tài khoản
               </button>
@@ -365,7 +365,7 @@ export function UserManagement() {
               </button>
               <button
                 onClick={handleEditUser}
-                className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
+                className="flex-1 bg-white text-black border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50"
               >
                 Cập nhật
               </button>

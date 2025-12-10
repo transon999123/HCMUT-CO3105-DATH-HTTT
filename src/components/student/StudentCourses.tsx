@@ -1,3 +1,4 @@
+// StudentCourses.tsx
 import { useState } from "react";
 import { DEMO_COURSES, COURSE_ENROLLMENTS, User } from "../../lib/mockData";
 import { BookOpen, Users, Plus, Search } from "lucide-react";
@@ -61,7 +62,7 @@ export function StudentCourses({ user, onNavigate }: StudentCoursesProps) {
 
         <button
           onClick={() => setJoinDialogOpen(true)}
-          className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 flex items-center gap-2"
+          className="bg-white text-black border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 flex items-center gap-2 transition-colors"
         >
           <Plus className="w-4 h-4" />
           Đăng ký lớp học
@@ -107,14 +108,14 @@ export function StudentCourses({ user, onNavigate }: StudentCoursesProps) {
 
             <div className="flex gap-2 mt-6">
               <button
-                className="flex-1 py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="flex-1 py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                 onClick={() => setJoinDialogOpen(false)}
               >
                 Hủy
               </button>
               <button
                 onClick={handleJoinCourse}
-                className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
+                className="flex-1 bg-white text-black border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 Đăng ký
               </button>
@@ -171,7 +172,7 @@ export function StudentCourses({ user, onNavigate }: StudentCoursesProps) {
           {!searchQuery && (
             <button
               onClick={() => setJoinDialogOpen(true)}
-              className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 flex items-center gap-2 mx-auto"
+              className="bg-white text-black border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 flex items-center gap-2 mx-auto transition-colors"
             >
               <Plus className="w-4 h-4" />
               Đăng ký lớp học
