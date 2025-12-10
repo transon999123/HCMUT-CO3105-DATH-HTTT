@@ -27,7 +27,7 @@ Biểu đồ công việc từng thành viên:
 | Vẽ Usecase | | x | x | |
 | Vẽ workflow | | x | | x |
 | ERD, Mapping | x | | | |
-| Database, back-end, API (currently) | x | | x | |
+| Database, back-end, API (currently) | x | | | |
 | Prototype, Front-end (currently) | | x | | x |
 | Testing & presenting | x | x | x | x |
 
