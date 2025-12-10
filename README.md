@@ -48,3 +48,6 @@ Một hệ thống lý tưởng cần có:
 • Quản lý điểm mạnh mẽ.
 
 Đề tài này sẽ phát triển một hệ thống nhẹ, dễ sử dụng, tập trung vào tính năng chính của lớp học
+
+
+Để chạy frontend, dùng npm install để tải dependency và npm run dev để build. Còn với Backend, vào folder backend và làm tương tự
