@@ -119,3 +119,19 @@ CREATE TABLE Submissions (
     FOREIGN KEY (student_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
+-- =============================================
+-- PHẦN 3: DỮ LIỆU MẪU (Mock Data) - Để test ngay
+-- =============================================
+
+-- Tạo 1 Admin
+INSERT INTO Users (username, password, email, role, admin_start_date) 
+VALUES ('admin1', '123456', 'admin@hcmut.edu.vn', 'Admin', CURDATE());
+
+-- Tạo 1 Teacher
+INSERT INTO Users (username, password, email, role, experience_years) 
+VALUES ('teacher1', '123456', 'gv@hcmut.edu.vn', 'Teacher', 5);
+
+-- Tạo 2 Student
+INSERT INTO Users (username, password, email, role) 
+VALUES ('student1', '123456', 'sv1@hcmut.edu.vn', 'Student'),
+       ('student2', '123456', 'sv2@hcmut.edu.vn', 'Student');
