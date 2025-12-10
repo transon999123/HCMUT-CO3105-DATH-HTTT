@@ -1,7 +1,8 @@
-// ForgotPasswordPage.tsx
+// src/components/login-page/ForgotPasswordPage.tsx
 import { useState } from "react";
-import { BookOpen, ArrowLeft } from "lucide-react";
+import { ArrowLeft, BookOpen } from "lucide-react";
 import logo from "../../assets/01_logobachkhoasang.png";
+import api from "../../services/api"; // Import API
 
 interface ForgotPasswordPageProps {
   onNavigateToLogin: () => void;
@@ -17,21 +18,35 @@ export function ForgotPasswordPage({
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSendCode = (e: React.FormEvent) => {
+  // BƯỚC 1: Gửi Email để kiểm tra
+  const handleSendCode = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setMessage("");
 
     if (!email) {
       setError("Vui lòng nhập email");
       return;
     }
 
-    // Mock sending code
-    setMessage("Mã xác nhận đã được gửi đến email của bạn");
-    setStep("code");
+    try {
+      setIsLoading(true);
+      // Gọi API kiểm tra email
+      await api.post("/verify-email", { email });
+      
+      // Nếu thành công (không nhảy vào catch)
+      setMessage("Mã xác nhận demo là: 123456");
+      setStep("code");
+    } catch (err: any) {
+      setError(err.response?.data?.message || "Email không tồn tại hoặc lỗi hệ thống.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  // BƯỚC 2: Xác thực mã code (Code demo cứng ở Client)
   const handleVerifyCode = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -41,16 +56,17 @@ export function ForgotPasswordPage({
       return;
     }
 
-    // Mock code verification
+    // Demo: Hardcode mã 123456
     if (code === "123456") {
-      setMessage("Mã xác nhận đúng. Vui lòng đặt mật khẩu mới");
+      setMessage("");
       setStep("reset");
     } else {
-      setError("Mã xác nhận không đúng");
+      setError("Mã xác nhận không đúng (Gợi ý: 123456)");
     }
   };
 
-  const handleResetPassword = (e: React.FormEvent) => {
+  // BƯỚC 3: Đổi mật khẩu mới
+  const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
@@ -69,11 +85,23 @@ export function ForgotPasswordPage({
       return;
     }
 
-    // Mock password reset
-    setMessage("Đặt lại mật khẩu thành công!");
-    setTimeout(() => {
-      onNavigateToLogin();
-    }, 1500);
+    try {
+      setIsLoading(true);
+      // Gọi API reset password
+      await api.post("/reset-password", { 
+        email, 
+        newPassword 
+      });
+
+      setMessage("Đặt lại mật khẩu thành công!");
+      setTimeout(() => {
+        onNavigateToLogin();
+      }, 2000);
+    } catch (err: any) {
+      setError("Lỗi khi đổi mật khẩu. Vui lòng thử lại.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -82,31 +110,31 @@ export function ForgotPasswordPage({
         <div className="bg-white rounded-xl shadow-lg p-8">
           {/* Logo and Title */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center h-32 rounded-full mb-4">
+            <div className="inline-flex items-center justify-center h-24 mb-4">
               <img
                 src={logo}
                 alt="Logo"
-                className="h-32 mx-auto mb-4 rounded-full object-cover"
+                className="h-full object-contain"
               />
             </div>
             <h1 className="text-2xl font-bold text-blue-600 mb-2">
               Quên mật khẩu
             </h1>
-            <p className="text-gray-600">
-              {step === "email" && "Nhập email để nhận mã xác nhận"}
-              {step === "code" && "Nhập mã xác nhận"}
+            <p className="text-gray-600 text-sm">
+              {step === "email" && "Nhập email đã đăng ký để lấy lại mật khẩu"}
+              {step === "code" && "Nhập mã xác nhận (Demo: 123456)"}
               {step === "reset" && "Đặt lại mật khẩu mới"}
             </p>
           </div>
 
           {/* Messages */}
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4 text-sm">
               {error}
             </div>
           )}
           {message && (
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded mb-4">
+            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded mb-4 text-sm">
               {message}
             </div>
           )}
@@ -115,27 +143,22 @@ export function ForgotPasswordPage({
           {step === "email" && (
             <form onSubmit={handleSendCode} className="space-y-4">
               <div className="space-y-2">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Email
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Email</label>
                 <input
-                  id="email"
                   type="email"
-                  placeholder="example@bkedu.vn"
+                  placeholder="email@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  disabled={isLoading}
                 />
               </div>
-
               <button
                 type="submit"
+                disabled={isLoading}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-200"
               >
-                Gửi mã xác nhận
+                {isLoading ? "Đang kiểm tra..." : "Gửi mã xác nhận"}
               </button>
             </form>
           )}
@@ -144,25 +167,15 @@ export function ForgotPasswordPage({
           {step === "code" && (
             <form onSubmit={handleVerifyCode} className="space-y-4">
               <div className="space-y-2">
-                <label
-                  htmlFor="code"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Mã xác nhận
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Mã xác nhận</label>
                 <input
-                  id="code"
                   type="text"
                   placeholder="123456"
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <p className="text-xs text-gray-500">
-                  Demo: Nhập mã "123456" để tiếp tục
-                </p>
               </div>
-
               <button
                 type="submit"
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-200"
@@ -176,14 +189,8 @@ export function ForgotPasswordPage({
           {step === "reset" && (
             <form onSubmit={handleResetPassword} className="space-y-4">
               <div className="space-y-2">
-                <label
-                  htmlFor="newPassword"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Mật khẩu mới
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Mật khẩu mới</label>
                 <input
-                  id="newPassword"
                   type="password"
                   placeholder="••••••••"
                   value={newPassword}
@@ -191,16 +198,9 @@ export function ForgotPasswordPage({
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-
               <div className="space-y-2">
-                <label
-                  htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Xác nhận mật khẩu
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Xác nhận mật khẩu</label>
                 <input
-                  id="confirmPassword"
                   type="password"
                   placeholder="••••••••"
                   value={confirmPassword}
@@ -208,17 +208,16 @@ export function ForgotPasswordPage({
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-
               <button
                 type="submit"
+                disabled={isLoading}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-200"
               >
-                Đặt lại mật khẩu
+                {isLoading ? "Đang xử lý..." : "Đặt lại mật khẩu"}
               </button>
             </form>
           )}
 
-          {/* Back to Login */}
           <div className="mt-6 text-center">
             <button
               onClick={onNavigateToLogin}

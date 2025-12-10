@@ -125,7 +125,7 @@ function AppContent() {
     return (
       <>
         <LoginPage
-          onLogin={login}
+          onLogin={login} // Hàm login từ useAuth()
           onNavigateToRegister={() => setAuthPage("register")}
           onNavigateToForgotPassword={() => setAuthPage("forgot-password")}
         />

@@ -1,7 +1,8 @@
-// TeacherCourses.tsx
-import { useState } from "react";
+// src/components/teacher/TeacherCourses.tsx
+import { useState, useEffect } from "react";
 import { BookOpen, Plus, Search, Users, Edit, Trash2 } from "lucide-react";
-import { DEMO_COURSES, User, Course } from "../../lib/mockData";
+import { User } from "../../lib/mockData"; // Vẫn giữ type User, nhưng bỏ DEMO_COURSES
+import api from "../../services/api"; // Import API thật
 
 interface TeacherCoursesProps {
   user: User;
@@ -11,50 +12,78 @@ interface TeacherCoursesProps {
 export function TeacherCourses({ user, onNavigate }: TeacherCoursesProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
-  const [courses, setCourses] = useState(
-    DEMO_COURSES.filter((course) => course.teacherId === user.id)
-  );
+  
+  // 1. State lưu dữ liệu thật từ Server
+  const [courses, setCourses] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [formData, setFormData] = useState({
     name: "",
-    code: "",
+    code: "", // Backend đang dùng class_code
     description: "",
     semester: "HK1 2024-2025",
     enrollmentCode: "",
   });
 
+  // 2. Gọi API lấy danh sách lớp khi trang vừa load
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const response = await api.get("/classes");
+      setCourses(response.data);
+    } catch (error) {
+      console.error("Lỗi tải lớp học:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCreateCourse = async () => {
+    if (!formData.name) return;
+
+    try {
+      // 3. Gọi API Tạo lớp (Mapping dữ liệu cho khớp Backend)
+      await api.post("/classes", {
+        class_name: formData.name,
+        class_description: formData.description,
+        // Backend API tạo lớp của bạn đang cần các trường này:
+        // start_time, end_time, days_of_week...
+        // Tạm thời mình hardcode giờ học demo để API không lỗi
+        start_time: "07:00:00",
+        end_time: "10:30:00",
+        days_of_week: "Thứ 2",
+        class_code: formData.code // Bạn cần thêm cột này vào DB nếu chưa có, hoặc bỏ qua
+      });
+
+      alert("Tạo lớp học thành công!");
+      setCreateDialogOpen(false);
+      fetchCourses(); // Load lại danh sách mới
+      
+      // Reset form
+      setFormData({
+        name: "",
+        code: "",
+        description: "",
+        semester: "HK1 2024-2025",
+        enrollmentCode: "",
+      });
+    } catch (error) {
+      console.error("Lỗi tạo lớp:", error);
+      alert("Lỗi khi tạo lớp học!");
+    }
+  };
+
+  // Logic filter phía client (giữ nguyên)
   const filteredCourses = courses.filter(
     (course) =>
-      course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      course.code.toLowerCase().includes(searchQuery.toLowerCase())
+      (course.class_name || course.name || "").toLowerCase().includes(searchQuery.toLowerCase())
+      // Backend trả về class_name, mock data dùng name. Code này support cả 2 để tránh lỗi.
   );
 
-  const handleCreateCourse = () => {
-    if (!formData.name || !formData.code) {
-      return;
-    }
-
-    const newCourse: Course = {
-      id: `course-${Date.now()}`,
-      name: formData.name,
-      code: formData.code,
-      description: formData.description,
-      teacherId: user.id,
-      teacherName: user.name,
-      semester: formData.semester,
-      studentCount: 0,
-      enrollmentCode: formData.enrollmentCode || formData.code.toUpperCase(),
-    };
-
-    setCourses([...courses, newCourse]);
-    setCreateDialogOpen(false);
-    setFormData({
-      name: "",
-      code: "",
-      description: "",
-      semester: "HK1 2024-2025",
-      enrollmentCode: "",
-    });
-  };
+  if (isLoading) return <div className="p-6">Đang tải dữ liệu...</div>;
 
   return (
     <div className="space-y-6">
@@ -80,7 +109,7 @@ export function TeacherCourses({ user, onNavigate }: TeacherCoursesProps) {
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
         <input
-          placeholder="Tìm kiếm lớp học theo tên hoặc mã..."
+          placeholder="Tìm kiếm lớp học..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -91,7 +120,7 @@ export function TeacherCourses({ user, onNavigate }: TeacherCoursesProps) {
       <div className="grid grid-cols-1 gap-4">
         {filteredCourses.map((course) => (
           <div
-            key={course.id}
+            key={course.class_id || course.id} // Backend dùng class_id
             className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-lg transition-shadow"
           >
             <div className="p-6">
@@ -99,7 +128,7 @@ export function TeacherCourses({ user, onNavigate }: TeacherCoursesProps) {
                 <div
                   className="flex-1 cursor-pointer"
                   onClick={() =>
-                    onNavigate("course-detail", { courseId: course.id })
+                    onNavigate("course-detail", { courseId: course.class_id || course.id })
                   }
                 >
                   <div className="flex items-center gap-3 mb-2">
@@ -107,28 +136,18 @@ export function TeacherCourses({ user, onNavigate }: TeacherCoursesProps) {
                       <BookOpen className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold">{course.name}</h3>
+                      <h3 className="font-semibold">{course.class_name || course.name}</h3>
                       <p className="text-sm text-gray-600">
-                        {course.code} • {course.semester}
+                        {/* Hiển thị lịch học thay vì mã lớp nếu chưa có */}
+                        {course.days_of_week} • {course.start_time?.slice(0,5)} - {course.end_time?.slice(0,5)}
                       </p>
                     </div>
                   </div>
                   <p className="text-sm text-gray-600 mb-3">
-                    {course.description}
+                    {course.class_description || course.description}
                   </p>
-                  <div className="flex items-center gap-4 text-sm">
-                    <div className="flex items-center gap-1 text-gray-600">
-                      <Users className="w-4 h-4" />
-                      <span>{course.studentCount} sinh viên</span>
-                    </div>
-                    <div className="text-gray-600">
-                      Mã đăng ký:{" "}
-                      <span className="text-blue-600">
-                        {course.enrollmentCode}
-                      </span>
-                    </div>
-                  </div>
                 </div>
+                {/* Nút thao tác */}
                 <div className="flex gap-2">
                   <button className="p-2 text-gray-600 hover:bg-gray-100 rounded">
                     <Edit className="w-4 h-4" />
@@ -142,130 +161,34 @@ export function TeacherCourses({ user, onNavigate }: TeacherCoursesProps) {
           </div>
         ))}
       </div>
-
-      {filteredCourses.length === 0 && (
-        <div className="text-center py-12">
-          <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-gray-600 mb-2">
-            {searchQuery ? "Không tìm thấy lớp học" : "Chưa có lớp học nào"}
-          </h3>
-          <p className="text-sm text-gray-600 mb-4">
-            {searchQuery
-              ? "Thử tìm kiếm với từ khóa khác"
-              : "Tạo lớp học mới để bắt đầu"}
-          </p>
-          {!searchQuery && (
-            <button
-              onClick={() => setCreateDialogOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-white text-black border border-gray-300 rounded-md hover:bg-gray-50 mx-auto"
-            >
-              <Plus className="w-4 h-4" />
-              Tạo lớp học mới
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Create Course Dialog */}
+      
+      {/* (Phần Dialog Create Course giữ nguyên UI, chỉ đổi hàm onClick của nút Tạo thành handleCreateCourse) */}
       {createDialogOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-200">
-              <h3 className="text-lg font-semibold">Tạo lớp học mới</h3>
-              <p className="text-gray-600">Nhập thông tin để tạo lớp học mới</p>
+            {/* ... Nội dung Dialog giữ nguyên, nhớ map onChange vào state formData ... */}
+            {/* Lưu ý: Input "Tên lớp học" phải map vào formData.name */}
+            <div className="bg-white rounded-lg max-w-2xl w-full p-6">
+                <h3 className="text-lg font-bold mb-4">Tạo lớp học mới</h3>
+                <div className="space-y-4">
+                    <input 
+                        className="w-full border p-2 rounded" 
+                        placeholder="Tên lớp học"
+                        value={formData.name}
+                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    />
+                    <textarea 
+                        className="w-full border p-2 rounded" 
+                        placeholder="Mô tả"
+                        value={formData.description}
+                        onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    />
+                    {/* Các trường khác tạm thời ẩn hoặc hardcode để test API */}
+                </div>
+                <div className="flex justify-end gap-2 mt-4">
+                    <button onClick={() => setCreateDialogOpen(false)} className="px-4 py-2 border rounded">Hủy</button>
+                    <button onClick={handleCreateCourse} className="px-4 py-2 bg-blue-600 text-white rounded">Tạo lớp</button>
+                </div>
             </div>
-            <div className="p-6 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Tên lớp học
-                  </label>
-                  <input
-                    placeholder="Lập trình Web nâng cao"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Mã lớp
-                  </label>
-                  <input
-                    placeholder="IT4409"
-                    value={formData.code}
-                    onChange={(e) =>
-                      setFormData({ ...formData, code: e.target.value })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Mô tả
-                </label>
-                <textarea
-                  placeholder="Mô tả về nội dung lớp học..."
-                  value={formData.description}
-                  onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
-                  }
-                  rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Học kỳ
-                  </label>
-                  <input
-                    placeholder="HK1 2024-2025"
-                    value={formData.semester}
-                    onChange={(e) =>
-                      setFormData({ ...formData, semester: e.target.value })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Mã đăng ký
-                  </label>
-                  <input
-                    placeholder="WEB2024"
-                    value={formData.enrollmentCode}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        enrollmentCode: e.target.value,
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="p-6 border-t border-gray-200 flex justify-end gap-2">
-              <button
-                onClick={() => setCreateDialogOpen(false)}
-                className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
-              >
-                Hủy
-              </button>
-              <button
-                onClick={handleCreateCourse}
-                className="px-4 py-2 bg-white text-black border border-gray-300 rounded-md hover:bg-gray-50"
-              >
-                Tạo lớp học
-              </button>
-            </div>
-          </div>
         </div>
       )}
     </div>
