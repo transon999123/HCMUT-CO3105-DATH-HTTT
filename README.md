@@ -1,3 +1,6 @@
+# Cách chạy
+Để chạy frontend, dùng npm install để tải dependency và npm run dev để build. Còn với Backend, vào folder backend và làm tương tự
+
 # Đồ án tổng hợp - Hệ Thống Thông Tin - Nhóm 1 - L01 - HCMUT
 CHỦ ĐỀ: HỆ THỐNG QUẢN LÍ LỚP HỌC
 
@@ -50,4 +53,3 @@ Một hệ thống lý tưởng cần có:
 Đề tài này sẽ phát triển một hệ thống nhẹ, dễ sử dụng, tập trung vào tính năng chính của lớp học
 
 
-Để chạy frontend, dùng npm install để tải dependency và npm run dev để build. Còn với Backend, vào folder backend và làm tương tự
