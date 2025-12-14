@@ -27,7 +27,7 @@
 | ERD | x | | | |
 | Prototype | | x | x | x |
 | Back-end | x | | | |
-| Front-end | x | x | | x |
+| Front-end | x | x | | |
 | Testing & presenting | x | x | x | x |
 | Report & slides | x | x | x | x |
 
@@ -135,4 +135,5 @@ Danh sách API đính kèm ở:
 - Leader: Trần Hữu Nguyên Sơn
 - MSSV: 2312981
 - Email liên hệ tại: ![son.tran2312981n48@hcmut.edu.vn](son.tran2312981n48@hcmut.edu.vn)
+
 
