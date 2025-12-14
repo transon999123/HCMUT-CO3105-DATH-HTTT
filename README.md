@@ -87,7 +87,7 @@ npm install
 
 # Cấu hình biến môi trường
 # Tạo file .env và điền thông tin tương ứng với MySQL của bạn:
-# DB_HOST=<your_local_ipadress>
+# DB_HOST=<your_local_ip_adress>
 # DB_USER=<your_name>
 # DB_PASSWORD=<your_pass>
 # DB_NAME=EduClassDB
@@ -139,6 +139,7 @@ Danh sách API đính kèm ở:
 - Leader: Trần Hữu Nguyên Sơn
 - MSSV: 2312981
 - Email liên hệ tại: ![son.tran2312981n48@hcmut.edu.vn](son.tran2312981n48@hcmut.edu.vn)
+
 
 
 
