@@ -1,5 +1,5 @@
 # Đồ án môn học: Hệ thống Thông tin (CO3105) - Đại học Bách Khoa TP.HCM (HCMUT)  
-**Tên đề tài: Hệ thống Quản lý Lớp học - GVHD: Trương Quỳnh Chi - Nhóm 1 - L01**
+### Tên đề tài: Hệ thống Quản lý Lớp học - GVHD: Trương Quỳnh Chi - Nhóm 1 - L01
 
 ## Danh sách SV:
 | STT | Họ và tên | MSSV | Tỉ lệ hoàn thành |
