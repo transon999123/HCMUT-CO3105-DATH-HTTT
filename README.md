@@ -69,7 +69,7 @@
 
 ### 2. Clone dự án
 ```bash
-git clone [https://github.com/transon999123/HCMUT-CO3105-DATH-HTTT.git](https://github.com/transon999123/HCMUT-CO3105-DATH-HTTT.git)
+git clone https://github.com/transon999123/HCMUT-CO3105-DATH-HTTT.git
 cd HCMUT-CO3105-DATH-HTTT
 ```
 
@@ -139,6 +139,7 @@ Danh sách API đính kèm ở:
 - Leader: Trần Hữu Nguyên Sơn
 - MSSV: 2312981
 - Email liên hệ tại: ![son.tran2312981n48@hcmut.edu.vn](son.tran2312981n48@hcmut.edu.vn)
+
 
 
 
