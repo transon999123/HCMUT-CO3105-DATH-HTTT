@@ -1,5 +1,5 @@
 # Cách chạy
-Để chạy frontend, dùng npm install để tải dependency và npm run dev để build. Còn với Backend, vào folder backend và làm tương tự
+Để chạy frontend và backend, vào từng folder, dùng npm install để tải dependency và npm run dev để build.
 
 # Đồ án tổng hợp - Hệ Thống Thông Tin - Nhóm 1 - L01 - HCMUT
 CHỦ ĐỀ: HỆ THỐNG QUẢN LÍ LỚP HỌC
