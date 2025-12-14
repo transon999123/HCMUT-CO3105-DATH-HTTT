@@ -33,7 +33,11 @@
 
 ## Tên đề tài: Hệ thống Quản lý Lớp học (Classroom Management System – CMS)
 ### Mô tả:
-Đây là một nền tảng web được xây dựng nhằm số hóa và hợp lý hóa các hoạt động quản lý, giảng dạy và học tập trong phạm vi lớp học của một trung tâm giáo dục (học thêm). Hệ thống tập trung vào các chức năng cốt lõi: quản lý lớp học – giao và nộp bài – chấm điểm – trao đổi.
+Đây là một nền tảng web được xây dựng nhằm số hóa và hợp lý hóa các hoạt động quản lý, giảng dạy và học tập trong phạm vi lớp học của một trung tâm giáo dục (học thêm). Hệ thống tập trung vào các chức năng cốt lõi: 
+- quản lý lớp học
+- giao và nộp bài
+- chấm điểm
+- trao đổi.
 
 **Repository:** [https://github.com/transon999123/HCMUT-CO3105-DATH-HTTT.git](https://github.com/transon999123/HCMUT-CO3105-DATH-HTTT.git)
 
@@ -135,5 +139,6 @@ Danh sách API đính kèm ở:
 - Leader: Trần Hữu Nguyên Sơn
 - MSSV: 2312981
 - Email liên hệ tại: ![son.tran2312981n48@hcmut.edu.vn](son.tran2312981n48@hcmut.edu.vn)
+
 
 
