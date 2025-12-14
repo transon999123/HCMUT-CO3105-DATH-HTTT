@@ -95,8 +95,7 @@ npm install
 # PORT=5000
 
 # Chạy server
-npm start
-# Hoặc chế độ dev: npm run dev
+npm run dev
 ```
 ### 5. Cài Frontend
 ```bash
@@ -139,6 +138,7 @@ Danh sách API đính kèm ở:
 - Leader: Trần Hữu Nguyên Sơn
 - MSSV: 2312981
 - Email liên hệ tại: ![son.tran2312981n48@hcmut.edu.vn](son.tran2312981n48@hcmut.edu.vn)
+
 
 
 
