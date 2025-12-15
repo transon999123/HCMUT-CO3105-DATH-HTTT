@@ -4,21 +4,21 @@
 ## Danh sách SV:
 | STT | Họ và tên | MSSV | Tỉ lệ hoàn thành |
 |-----|-----------|------|---|
-| 1 | Trần Hữu Nguyên Sơn (leader) | 2312981 | 100% |
-| 2 | Đào Xuân Sơn | 2312954 | 100% |
-| 3 | Nguyễn Thị Quỳnh Tâm | 2313037 | 100% |
-| 4 | Lê Quốc Thái | 2313097 | 100% |
+| 1 | Trần Hữu Nguyên Sơn (leader) | 2312981 | 105% |
+| 2 | Đào Xuân Sơn | 2312954 | 105% |
+| 3 | Nguyễn Thị Quỳnh Tâm | 2313037 | 105% |
+| 4 | Lê Quốc Thái | 2313097 | 85% |
 
-*note: Tạm thời Thái được nhận đánh giá hoàn thành với tỉ lệ 100%, nhưng sau khi nhóm đánh giá thái độ và đóng góp thực tế của thành viên này, nếu Thái không hoàn thành slide báo cáo trước 0h 16/12/2025 thì nhóm sẽ thống nhất trừ 15% ở tỉ lệ hoàn thành của thành viên này, và số phần trăm đóng góp đó sẽ được chia đều cho các thành viên còn lại.
+*note: Sau khi cả nhóm đánh giá thái độ và đóng góp thực tế của thành viên Thái này, nhóm đã thống nhất trừ 15% ở tỉ lệ hoàn thành của thành viên này, và số phần trăm đóng đó sẽ được chia đều cho các thành viên còn lại.
 
 ## Biểu đồ Gantt công việc:
-| ĐATH | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 | T13 | T14 |
-|------|----|----|----|----|----|----|----|----|----|-----|-----|-----|-----|-----|
-| Planning & analyzing (done) | x | x | | | | | | | | | | | | |
-| Design (done) | | x | x | x | x | x | x | | | | | | | |
-| Implementation (done) | | | | | | x | x | x | x | x | x | x | x | x |
-| Testing (done) | | | | | | | | | | | | x | x | x |
-| Report | | | | | | | | | | | | | | x |
+| ĐATH | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 | T13 | T14 | T15 |
+|------|----|----|----|----|----|----|----|----|----|-----|-----|-----|-----|-----|-----|
+| Planning & analyzing | x | x | | | | | | | | | | | | | |
+| Design | | x | x | x | x | x | x | | | | | | | | |
+| Implementation | | | | | | x | x | x | x | x | x | x | x | x | x |
+| Testing | | | | | | | | | | | | | x | x | x |
+| Report | | | | | | | | | | | | | | | x |
 
 ## Biểu đồ công việc từng thành viên:
 | Task/SV | NSơn (lead) | XSơn | Thái | Tâm |
@@ -139,6 +139,7 @@ Danh sách API đính kèm ở:
 - Leader: Trần Hữu Nguyên Sơn
 - MSSV: 2312981
 - Email liên hệ tại: ![son.tran2312981n48@hcmut.edu.vn](son.tran2312981n48@hcmut.edu.vn)
+
 
 
 
