@@ -113,7 +113,6 @@ Truy cập ứng dụng tại: http://localhost:<port_on_terminal>
 ```
 ## Tính năng chính
 ### Quản trị viên (Admin)
-- Dashboard thống kê: Xem tổng quan số lượng user, lớp học, biểu đồ tăng trưởng.
 - Quản lý User: Thêm, xóa, sửa thông tin Giảng viên và Sinh viên.
 - Quản lý Lớp học: Tạo lớp học mới, phân công Giảng viên, chỉnh sửa thông tin lớp (Màu sắc, Lịch học).
 - Enrollment: Thêm/Xóa sinh viên khỏi lớp học.
@@ -140,6 +139,7 @@ Danh sách API đính kèm ở:
 - Leader: Trần Hữu Nguyên Sơn
 - MSSV: 2312981
 - Email liên hệ tại: ![son.tran2312981n48@hcmut.edu.vn](son.tran2312981n48@hcmut.edu.vn)
+
 
 
 
