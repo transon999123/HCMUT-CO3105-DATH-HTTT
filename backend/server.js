@@ -900,9 +900,7 @@ app.get('/api/assignments/:id/submissions', verifyToken, async (req, res) => {
 
     try {
         // QUERY MỚI:
-        // 1. Lấy thông tin bài tập để biết class_id
-        // 2. JOIN Enrollments để lấy tất cả sinh viên trong lớp đó
-        // 3. LEFT JOIN Submissions để lấy thông tin nộp bài (nếu có)
+        // Đã thêm s.submission_description vào danh sách SELECT
         const sql = `
             SELECT 
                 u.user_id, 
@@ -912,6 +910,7 @@ app.get('/api/assignments/:id/submissions', verifyToken, async (req, res) => {
                 s.submission_id,
                 s.submitted_at,
                 s.submission_file_url,
+                s.submission_description, -- <--- QUAN TRỌNG: Lấy thêm cột mô tả
                 s.score,
                 s.teacher_comment
             FROM Assignments a
@@ -928,11 +927,11 @@ app.get('/api/assignments/:id/submissions', verifyToken, async (req, res) => {
             studentId: row.user_id,
             studentName: `${row.last_name} ${row.first_name}`,
             email: row.email,
-            // Nếu có submission_id tức là đã nộp
             isSubmitted: !!row.submission_id, 
             submission_id: row.submission_id,
             submitted_at: row.submitted_at,
             submission_file_url: row.submission_file_url,
+            submission_description: row.submission_description, // <--- Trả về cho Frontend
             score: row.score,
             teacher_comment: row.teacher_comment
         }));
