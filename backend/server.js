@@ -500,6 +500,62 @@ app.post('/api/submissions', verifyToken, upload.single('file'), async (req, res
     }
 });
 
+// 20. API Sinh viên sửa bài nộp (Resubmit)
+app.put('/api/submissions/student', verifyToken, upload.single('file'), async (req, res) => {
+    const { role, userId } = req.user;
+    // Lấy dữ liệu từ FormData (Frontend gửi lên)
+    const { assignment_id, submission_description } = req.body;
+
+    if (role !== 'Student') {
+        return res.status(403).json({ message: "Chỉ sinh viên mới được sửa bài!" });
+    }
+
+    try {
+        // 1. Kiểm tra xem bài tập còn hạn không
+        const [assignment] = await db.query(
+            'SELECT end_date FROM Assignments WHERE assignment_id = ?', 
+            [assignment_id]
+        );
+
+        if (assignment.length === 0) return res.status(404).json({ message: "Bài tập không tồn tại" });
+
+        const endDate = new Date(assignment[0].end_date);
+        const now = new Date();
+
+        if (now > endDate) {
+            return res.status(400).json({ message: "Đã hết hạn nộp bài, không thể chỉnh sửa!" });
+        }
+
+        // 2. Xây dựng câu query update
+        // Logic: Luôn update mô tả và thời gian nộp.
+        // Chỉ update file nếu người dùng có gửi file mới lên.
+        let sql = `UPDATE Submissions SET submission_description = ?, submitted_at = NOW()`;
+        let params = [submission_description];
+
+        if (req.file) {
+            // Nếu có file mới -> Cập nhật đường dẫn file
+            const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+            sql += `, submission_file_url = ?`;
+            params.push(fileUrl);
+        }
+
+        sql += ` WHERE assignment_id = ? AND student_id = ?`;
+        params.push(assignment_id, userId);
+
+        await db.query(sql, params);
+        const [assignInfo] = await db.query('SELECT a.title, c.teacher_id FROM Assignments a JOIN Classes c ON a.class_id = c.class_id WHERE a.assignment_id = ?', [assignment_id]);
+        if (assignInfo.length > 0 && assignInfo[0].teacher_id) {
+            await createNotification(assignInfo[0].teacher_id, `Sinh viên đã cập nhật bài nộp "${assignInfo[0].title}".`, `assignment-detail?assignmentId=${assignment_id}`);
+        }
+
+        res.json({ success: true, message: "Cập nhật bài nộp thành công!" });
+
+    } catch (error) {
+        console.error("Lỗi sửa bài:", error);
+        res.status(500).json({ message: "Lỗi Server khi sửa bài" });
+    }
+});
+
 // 9. API Chấm điểm (Teacher)
 app.put('/api/submissions/:submissionId', verifyToken, async (req, res) => {
     const { role } = req.user;
@@ -918,61 +974,7 @@ app.put('/api/assignments/:id', verifyToken, upload.single('file'), async (req, 
         res.status(500).json({ message: "Lỗi cập nhật" });
     }
 });
-// 20. API Sinh viên sửa bài nộp (Resubmit)
-app.put('/api/submissions/student', verifyToken, upload.single('file'), async (req, res) => {
-    const { role, userId } = req.user;
-    // Lấy dữ liệu từ FormData (Frontend gửi lên)
-    const { assignment_id, submission_description } = req.body;
 
-    if (role !== 'Student') {
-        return res.status(403).json({ message: "Chỉ sinh viên mới được sửa bài!" });
-    }
-
-    try {
-        // 1. Kiểm tra xem bài tập còn hạn không
-        const [assignment] = await db.query(
-            'SELECT end_date FROM Assignments WHERE assignment_id = ?', 
-            [assignment_id]
-        );
-
-        if (assignment.length === 0) return res.status(404).json({ message: "Bài tập không tồn tại" });
-
-        const endDate = new Date(assignment[0].end_date);
-        const now = new Date();
-
-        if (now > endDate) {
-            return res.status(400).json({ message: "Đã hết hạn nộp bài, không thể chỉnh sửa!" });
-        }
-
-        // 2. Xây dựng câu query update
-        // Logic: Luôn update mô tả và thời gian nộp.
-        // Chỉ update file nếu người dùng có gửi file mới lên.
-        let sql = `UPDATE Submissions SET submission_description = ?, submitted_at = NOW()`;
-        let params = [submission_description];
-
-        if (req.file) {
-            // Nếu có file mới -> Cập nhật đường dẫn file
-            const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-            sql += `, submission_file_url = ?`;
-            params.push(fileUrl);
-        }
-
-        sql += ` WHERE assignment_id = ? AND student_id = ?`;
-        params.push(assignment_id, userId);
-
-        await db.query(sql, params);
-        const [assignInfo] = await db.query('SELECT a.title, c.teacher_id FROM Assignments a JOIN Classes c ON a.class_id = c.class_id WHERE a.assignment_id = ?', [assignment_id]);
-        if (assignInfo.length > 0 && assignInfo[0].teacher_id) {
-            await createNotification(assignInfo[0].teacher_id, `Sinh viên đã cập nhật bài nộp "${assignInfo[0].title}".`, `assignment-detail?assignmentId=${assignment_id}`);
-        }
-
-        res.json({ success: true, message: "Cập nhật bài nộp thành công!" });
-
-    } catch (error) {
-        console.error("Lỗi sửa bài:", error);
-        res.status(500).json({ message: "Lỗi Server khi sửa bài" });
-    }
-});
 
 // --- QUẢN LÝ FORUM (THẢO LUẬN) ---
 
