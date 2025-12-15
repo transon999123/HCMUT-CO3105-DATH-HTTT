@@ -2,7 +2,7 @@
 ### Tên đề tài: Hệ thống Quản lý Lớp học - GVHD: Trương Quỳnh Chi - Nhóm 1 - L01
 
 ## Danh sách SV:
-| STT | Họ và tên | MSSV | Tỉ lệ hoàn thành |
+| STT | Họ và tên | MSSV | Tỉ lệ hoàn thành* |
 |-----|-----------|------|---|
 | 1 | Trần Hữu Nguyên Sơn (leader) | 2312981 | 105% |
 | 2 | Đào Xuân Sơn | 2312954 | 105% |
@@ -139,6 +139,7 @@ Danh sách API đính kèm ở:
 - Leader: Trần Hữu Nguyên Sơn
 - MSSV: 2312981
 - Email liên hệ tại: ![son.tran2312981n48@hcmut.edu.vn](son.tran2312981n48@hcmut.edu.vn)
+
 
 
 
