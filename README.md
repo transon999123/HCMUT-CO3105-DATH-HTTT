@@ -8,6 +8,7 @@
 | 2 | Đào Xuân Sơn | 2312954 | 100% |
 | 3 | Nguyễn Thị Quỳnh Tâm | 2313037 | 100% |
 | 4 | Lê Quốc Thái | 2313097 | 100% |
+
 *note: tạm thời Thái đóng góp 100%, nhưng sau khi nhóm cân nhắc thái độ và đóng góp thực tế, nếu Thái không hoàn thành slide báo cáo trước 12h đêm thì sẽ bị trừ đóng góp 15%, và số phần trăm đóng góp đó sẽ được chia đều cho các thành viên còn lại của team.
 
 ## Biểu đồ Gantt công việc:
@@ -139,6 +140,7 @@ Danh sách API đính kèm ở:
 - Leader: Trần Hữu Nguyên Sơn
 - MSSV: 2312981
 - Email liên hệ tại: ![son.tran2312981n48@hcmut.edu.vn](son.tran2312981n48@hcmut.edu.vn)
+
 
 
 
