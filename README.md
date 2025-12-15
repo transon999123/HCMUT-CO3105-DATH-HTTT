@@ -9,7 +9,7 @@
 | 3 | Nguyễn Thị Quỳnh Tâm | 2313037 | 100% |
 | 4 | Lê Quốc Thái | 2313097 | 100% |
 
-*note: Tạm thời Thái được nhận đánh giá hoàn thành với tỉ lệ 100%, nhưng sau khi nhóm đánh giá thái độ và đóng góp thực tế của thành viên này, nếu Thái không hoàn thành slide báo cáo trước 12h đêm thì nhóm sẽ thống nhất trừ 15% ở tỉ lệ hoàn thành của thành viên này, và số phần trăm đóng góp đó sẽ được chia đều cho các thành viên còn lại.
+*note: Tạm thời Thái được nhận đánh giá hoàn thành với tỉ lệ 100%, nhưng sau khi nhóm đánh giá thái độ và đóng góp thực tế của thành viên này, nếu Thái không hoàn thành slide báo cáo trước 0h 16/12/2025 thì nhóm sẽ thống nhất trừ 15% ở tỉ lệ hoàn thành của thành viên này, và số phần trăm đóng góp đó sẽ được chia đều cho các thành viên còn lại.
 
 ## Biểu đồ Gantt công việc:
 | ĐATH | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 | T13 | T14 |
@@ -140,6 +140,7 @@ Danh sách API đính kèm ở:
 - Leader: Trần Hữu Nguyên Sơn
 - MSSV: 2312981
 - Email liên hệ tại: ![son.tran2312981n48@hcmut.edu.vn](son.tran2312981n48@hcmut.edu.vn)
+
 
 
 
